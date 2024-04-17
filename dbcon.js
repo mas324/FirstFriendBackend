@@ -42,9 +42,6 @@ app.post("/api/auth", (req, res) => {
             }
             const salt = ITEM.name_last + ITEM.student_id + ITEM.username + ITEM.name_first + '';
             const hashedPass = pbkdf2Sync(authPass, salt, ITERATIONS, KEYLEN, DIGEST).toString('hex');
-            //console.log('Sent password:', authPass);
-            //console.log('Hashed to:', hashedPass);
-            //console.log('Against:', ITEM.password);
             const verify = ITEM.password === hashedPass;
             verify ? res.status(200).send(PROFILE) : res.status(401).send(false);
         }
